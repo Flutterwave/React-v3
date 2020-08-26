@@ -133,7 +133,6 @@ file for details
 4. Push to the branch: `git push origin feature-name`
 5. Submit a pull request
 
-Follow on Twitter [@UgwumaduJoel](https://twitter.com/UgwumaduJoel)
 
 This project follows the
 [all-contributors](https://github.com/all-contributors/all-contributors)
