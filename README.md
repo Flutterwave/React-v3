@@ -32,7 +32,7 @@ import { useFlutterwave } from 'flutterwave-react-v3';
 
 export default function App() {
   const config = {
-    public_key: 'FLWPUBK-ad8d5d4eca114b1255ac7798d3d1787d-X',
+    public_key: 'FLWPUBK-**************************-X',
     tx_ref: Date.now(),
     amount: 100,
     currency: 'NGN',
@@ -81,7 +81,7 @@ import { FlutterWaveButton } from 'flutterwave-react-v3';
 
 export default function App() {
    const config = {
-    public_key: 'FLWPUBK-ad8d5d4eca114b1255ac7798d3d1787d-X',
+    public_key: 'FLWPUBK-**************************-X',
     tx_ref: Date.now(),
     amount: 100,
     currency: 'NGN',
