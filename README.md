@@ -2,15 +2,31 @@
     <img title="Flutterwave" height="200" src="https://flutterwave.com/images/logo-colored.svg" width="50%"/>
 </p>
 
-# flutterwave-react-v3
+## Table of Contents
 
-This is a react package for implementing Flutterwave collection gateway
+- [About](#about)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Built Using](#build-tools)
+- [References](#references)
 
-## Demo
 
-![Alt text](React_App.png?raw=true "Demo Image")
+<a id="about"></a>
 
-## Installation
+## About
+
+This is a react package for implementing Flutterwave gateway with different payment methods.
+
+<a id="getting-started"></a>
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+See [references](#references) for links to dashboard and API documentation.
+
+
+### Installation
 
 ```bash
 $ npm install flutterwave-react-v3
@@ -22,7 +38,7 @@ $ yarn add flutterwave-react-v3
 
 ```
 
-### Usage
+## Usage
 
 ### Hooks
 
@@ -116,37 +132,28 @@ export default function App() {
 }
 ```
 
-Please checkout
-[Flutterwave Documentation](https://developer.flutterwave.com/docs/flutterwave-standard)
-for other available options you can add to the tag
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE)
-file for details
-
-## Contributions ✨
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b feature-name`
-3. Commit your changes: `git commit -am 'Some commit message'`
-4. Push to the branch: `git push origin feature-name`
-5. Submit a pull request
+Please checkout [Flutterwave Documentation](https://developer.flutterwave.com/docs/flutterwave-standard) for other available options you can add to the tag.
 
 
-This project follows the
-[all-contributors](https://github.com/all-contributors/all-contributors)
-specification. Contributions of any kind welcome!
+<a id="deployment"></a>
+
+## Deployment
+
+- Switch to Live Mode on the Dashboard settings page
+- Use the Live Public API key 
+
+<a id="build-tools"></a>
+## Built Using
+
+- [Typescript](https://www.typescriptlang.org/)
+- React
 
 
-### Issues
+<a id="references"></a>
 
-Looking to contribute? Look for the Good First Issue label.
+## Flutterwave API  References
 
-### 🐛 Bugs
+- [Flutterwave API Doc](https://developer.flutterwave.com/docs)
+- [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/flutterwave-inline)
+- [Flutterwave Dashboard](https://dashboard.flutterwave.com/login)  
 
-Please file an issue for bugs, missing documentation, or unexpected behavior.
-
-## License
-
-MIT
