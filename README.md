@@ -2,7 +2,7 @@
     <img title="Flutterwave" height="200" src="https://flutterwave.com/images/logo-colored.svg" width="50%"/>
 </p>
 
-# Flutterwave-v3-react
+# flutterwave-react-v3
 
 This is a react package for implementing Flutterwave collection gateway
 
@@ -13,10 +13,10 @@ This is a react package for implementing Flutterwave collection gateway
 ## Installation
 
 ```bash
-$ npm install flutterwave-v3-react
+$ npm install flutterwave-react-v3
 
 # or
-$ yarn add flutterwave-v3-react
+$ yarn add flutterwave-react-v3
 
 
 
@@ -28,7 +28,7 @@ $ yarn add flutterwave-v3-react
 
 ```javascript
 import React from 'react';
-import { useFlutterwave } from 'flutterwave-v3-react';
+import { useFlutterwave } from 'flutterwave-react-v3';
 
 export default function App() {
   const config = {
@@ -77,7 +77,7 @@ export default function App() {
 
 ```javascript
 import React from 'react';
-import { FlutterWaveButton } from 'flutterwave-v3-react';
+import { FlutterWaveButton } from 'flutterwave-react-v3';
 
 export default function App() {
    const config = {
