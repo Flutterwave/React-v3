@@ -153,8 +153,10 @@ Please checkout [Flutterwave Documentation](https://developer.flutterwave.com/do
 - [Typescript](https://www.typescriptlang.org/)
 - React
 
+## Contributors
 
-<a id="references"></a>
+- [Somto Ugeh](https://twitter.com/SomtoUgeh)
+
 
 ## Flutterwave API  References
 
