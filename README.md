@@ -2,6 +2,11 @@
     <img title="Flutterwave" height="200" src="https://flutterwave.com/images/logo-colored.svg" width="50%"/>
 </p>
 
+# Flutterwave v3 React Library
+![npm](https://img.shields.io/npm/v/flutterwave-react-v3)
+![npm](https://img.shields.io/npm/dt/flutterwave-react-v3)
+![NPM](https://img.shields.io/npm/l/flutterwave-react-v3)
+
 ## Table of Contents
 
 - [About](#about)

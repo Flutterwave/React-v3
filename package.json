@@ -1,13 +1,13 @@
 {
   "name": "flutterwave-react-v3",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Official React Package for Flutterwave v3 payment APIs",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Flutterwave/Flutterwave-React-v3.git"
   },
-  "author": "Joel Ugwumadu <ugwumadu116@gmail.com>",
+  "author": "Flutterwave Developers",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Flutterwave/Flutterwave-React-v3/issues"
@@ -78,11 +78,6 @@
     "jsxBracketSameLine": false,
     "quoteProps": "as-needed",
     "htmlWhitespaceSensitivity": "css"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "**/*.+(js|ts|graphql|yml|yaml|vue|tsx)": [
