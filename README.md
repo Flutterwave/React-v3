@@ -3,6 +3,7 @@
 </p>
 
 # Flutterwave v3 React Library
+![Publish React Package](https://github.com/Flutterwave/Flutterwave-React-v3/workflows/Publish%20React%20Package/badge.svg)
 ![npm](https://img.shields.io/npm/v/flutterwave-react-v3)
 ![npm](https://img.shields.io/npm/dt/flutterwave-react-v3)
 ![NPM](https://img.shields.io/npm/l/flutterwave-react-v3)
