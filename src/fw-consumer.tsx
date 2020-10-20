@@ -23,10 +23,10 @@ const FWConsumerChild = ({
     handleFlutterwavePayment: initializePayment,
   } = React.useContext(FWContext);
 
-  const handleFlutterwavePayment = (): void =>
-    initializePayment({ callback, onClose });
-
-  return children({ handleFlutterwavePayment, ref });
+  return children({
+    handleFlutterwavePayment: () => initializePayment({ callback, onClose }),
+    ref,
+  });
 };
 
 const FWConsumer = React.forwardRef(

@@ -141,7 +141,7 @@ var FWContext = createContext({
 var Provider = FWContext.Provider;
 
 var FWProvider = function (_a) {
-    var children = _a.children, callback = _a.callback, onClose = _a.onClose, others = __rest(_a, ["children", "callback", "onClose"]);
+    var onClose = _a.onClose, children = _a.children, callback = _a.callback, others = __rest(_a, ["onClose", "children", "callback"]);
     var handleFlutterwavePayment = useFlutterwave(others);
     return (createElement(Provider, { value: { handleFlutterwavePayment: handleFlutterwavePayment, callback: callback, onClose: onClose } }, children));
 };
@@ -149,10 +149,10 @@ var FWProvider = function (_a) {
 var FWConsumerChild = function (_a) {
     var children = _a.children, ref = _a.ref;
     var _b = useContext(FWContext), onClose = _b.onClose, callback = _b.callback, initializePayment = _b.handleFlutterwavePayment;
-    var handleFlutterwavePayment = function () {
-        return initializePayment({ callback: callback, onClose: onClose });
-    };
-    return children({ handleFlutterwavePayment: handleFlutterwavePayment, ref: ref });
+    return children({
+        handleFlutterwavePayment: function () { return initializePayment({ callback: callback, onClose: onClose }); },
+        ref: ref,
+    });
 };
 var FWConsumer = forwardRef(function (_a, ref) {
     var children = _a.children, callback = _a.callback, onClose = _a.onClose, others = __rest(_a, ["children", "callback", "onClose"]);
