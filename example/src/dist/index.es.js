@@ -1,4 +1,4 @@
-import { useState, useEffect, createElement } from 'react';
+import { useState, useEffect, createElement, createContext, forwardRef, useContext } from 'react';
 
 /**
  * Check out {@link https://developer.flutterwave.com/docs/flutterwave-standard} for more information.
@@ -62,6 +62,7 @@ function useFWScript() {
         }
         else {
             loadedScripts.src = src;
+            // eslint-disable-next-line no-undef
             var script_1 = document.createElement('script');
             script_1.src = src;
             script_1.async = true;
@@ -81,6 +82,7 @@ function useFWScript() {
             script_1.addEventListener('load', onScriptLoad_1);
             script_1.addEventListener('complete', onScriptLoad_1);
             script_1.addEventListener('error', onScriptError_1);
+            // eslint-disable-next-line no-undef
             document.body.appendChild(script_1);
             return function () {
                 script_1.removeEventListener('load', onScriptLoad_1);
@@ -115,8 +117,10 @@ function useFlutterwave(flutterWaveConfig) {
             var flutterwaveArgs = __assign(__assign({}, flutterWaveConfig), { amount: (_b = flutterWaveConfig.amount) !== null && _b !== void 0 ? _b : 0, callback: callback, onclose: onClose, payment_options: (_c = flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) !== null && _c !== void 0 ? _c : 'card, ussd, mobilemoney' });
             return (
             // @ts-ignore
+            // eslint-disable-next-line no-undef
             window.FlutterwaveCheckout &&
                 // @ts-ignore
+                // eslint-disable-next-line no-undef
                 window.FlutterwaveCheckout(flutterwaveArgs));
         }
     }
@@ -129,4 +133,31 @@ var FlutterWaveButton = function (_a) {
     return (createElement("button", { disabled: disabled, className: className, onClick: function () { return handleFlutterwavePayment({ callback: callback, onClose: onClose }); } }, text || children));
 };
 
-export { FlutterWaveButton, types as FlutterWaveTypes, useFlutterwave };
+var FWContext = createContext({
+    handleFlutterwavePayment: function () { return null; },
+    onClose: function () { return null; },
+    callback: function () { return null; },
+});
+var Provider = FWContext.Provider;
+
+var FWProvider = function (_a) {
+    var children = _a.children, callback = _a.callback, onClose = _a.onClose, others = __rest(_a, ["children", "callback", "onClose"]);
+    var handleFlutterwavePayment = useFlutterwave(others);
+    return (createElement(Provider, { value: { handleFlutterwavePayment: handleFlutterwavePayment, callback: callback, onClose: onClose } }, children));
+};
+
+var FWConsumerChild = function (_a) {
+    var children = _a.children, ref = _a.ref;
+    var _b = useContext(FWContext), onClose = _b.onClose, callback = _b.callback, initializePayment = _b.handleFlutterwavePayment;
+    var handleFlutterwavePayment = function () {
+        return initializePayment({ callback: callback, onClose: onClose });
+    };
+    return children({ handleFlutterwavePayment: handleFlutterwavePayment, ref: ref });
+};
+var FWConsumer = forwardRef(function (_a, ref) {
+    var children = _a.children, callback = _a.callback, onClose = _a.onClose, others = __rest(_a, ["children", "callback", "onClose"]);
+    return (createElement(FWProvider, __assign({}, __assign({ onClose: onClose, callback: callback }, others)),
+        createElement(FWConsumerChild, { ref: ref }, children)));
+});
+
+export { FlutterWaveButton, FWConsumer as FlutterWaveConsumer, types as FlutterWaveTypes, useFlutterwave };

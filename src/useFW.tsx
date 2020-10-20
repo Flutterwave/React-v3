@@ -43,8 +43,10 @@ export default function useFlutterwave(
 
       return (
         // @ts-ignore
+        // eslint-disable-next-line no-undef
         window.FlutterwaveCheckout &&
         // @ts-ignore
+        // eslint-disable-next-line no-undef
         window.FlutterwaveCheckout(flutterwaveArgs)
       );
     }

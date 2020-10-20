@@ -22,13 +22,17 @@ export default function App() {
 
   const handleFlutterPayment = useFlutterwave(config);
 
+  function handleSuccess(response) {
+    console.log(response);
+  }
+
+  function handleClose() {}
+
   const fwConfig = {
     ...config,
     text: 'Pay with Flutterwave!',
-    callback: (response) => {
-      console.log(response);
-    },
-    onClose: () => {},
+    callback: handleSuccess,
+    onClose: handleClose,
   };
 
   return (
@@ -50,6 +54,21 @@ export default function App() {
       </button>
 
       <FlutterWaveButton {...fwConfig} />
+
+      <FlutterWaveConsumer {...config}>
+        {({ handleFlutterwavePayment }) => (
+          <button
+            onClick={() =>
+              handleFlutterwavePayment({
+                onClose: handleClose,
+                callback: handleSuccess,
+              })
+            }
+          >
+            Flutterwave Consumer Implementation
+          </button>
+        )}
+      </FlutterWaveConsumer>
     </div>
   );
 }

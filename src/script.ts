@@ -26,6 +26,7 @@ export default function useFWScript(): readonly [boolean, boolean] {
     } else {
       loadedScripts.src = src;
 
+      // eslint-disable-next-line no-undef
       const script = document.createElement('script');
       script.src = src;
       script.async = true;
@@ -50,6 +51,7 @@ export default function useFWScript(): readonly [boolean, boolean] {
       script.addEventListener('complete', onScriptLoad);
       script.addEventListener('error', onScriptError);
 
+      // eslint-disable-next-line no-undef
       document.body.appendChild(script);
 
       return () => {
