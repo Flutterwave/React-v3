@@ -50,7 +50,7 @@ $ yarn add flutterwave-react-v3
 
 ```javascript
 import React from 'react';
-import { useFlutterwave } from 'flutterwave-react-v3';
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 
 export default function App() {
   const config = {
@@ -81,7 +81,8 @@ export default function App() {
         onClick={() => {
           handleFlutterPayment({
             callback: (response) => {
-              console.log(response);
+               console.log(response);
+                closePaymentModal() // this will close the modal programmatically
             },
             onClose: () => {},
           });
@@ -99,7 +100,7 @@ export default function App() {
 
 ```javascript
 import React from 'react';
-import { FlutterWaveButton } from 'flutterwave-react-v3';
+import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
 
 export default function App() {
    const config = {
@@ -124,7 +125,8 @@ export default function App() {
     ...config,
     text: 'Pay with Flutterwave!',
     callback: (response) => {
-      console.log(response);
+       console.log(response);
+      closePaymentModal() // this will close the modal programmatically
     },
     onClose: () => {},
   };
@@ -137,6 +139,11 @@ export default function App() {
   );
 }
 ```
+## Other methods and descriptions:
+
+| Method Name  | Parameters  | Returns |Description |
+| ------------- | ------------- | ------------- | ------------- |
+| closePaymentModal  |  Null | Null | This methods allows you to close the payment modal via code. |
 
 Please checkout [Flutterwave Documentation](https://developer.flutterwave.com/docs/flutterwave-standard) for other available options you can add to the tag.
 
