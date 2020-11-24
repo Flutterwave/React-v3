@@ -137,6 +137,11 @@ export default function App() {
   );
 }
 ```
+## Other methods and descriptions:
+
+| Method Name  | Parameters  | Returns |Description |
+| ------------- | ------------- | ------------- | ------------- |
+| closePaymentModal  |  Null | Null | This methods allows you to close the payment modal via code. |
 
 Please checkout [Flutterwave Documentation](https://developer.flutterwave.com/docs/flutterwave-standard) for other available options you can add to the tag.
 

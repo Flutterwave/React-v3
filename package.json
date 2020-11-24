@@ -91,5 +91,8 @@
   },
   "directories": {
     "example": "example"
+  },
+  "dependencies": {
+    "axios": "^0.21.0"
   }
 }

@@ -23,7 +23,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["src", "example/src/dist"],
   "exclude": [
     "node_modules",
     "test",
