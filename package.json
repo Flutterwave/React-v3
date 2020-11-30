@@ -1,6 +1,6 @@
 {
   "name": "flutterwave-react-v3",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Official React Package for Flutterwave v3 payment APIs",
   "main": "dist/index.js",
   "repository": {
@@ -91,5 +91,8 @@
   },
   "directories": {
     "example": "example"
+  },
+  "dependencies": {
+    "axios": "^0.21.0"
   }
 }

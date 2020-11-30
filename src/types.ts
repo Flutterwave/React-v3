@@ -66,6 +66,7 @@ export interface FlutterWaveProps {
    * function to be called when the payment is completed successfully
    */
   callback: (data: FlutterWaveResponse) => void;
+  
   /**
    * function to be called when the mono connection is closed
    */

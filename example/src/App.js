@@ -1,11 +1,15 @@
 import React from 'react';
-import { useFlutterwave, FlutterWaveButton } from './dist/index';
+import {
+  useFlutterwave,
+  FlutterWaveButton,
+  closePaymentModal,
+} from './dist/index';
 
 export default function App() {
   const config = {
-    public_key: 'FLWPUBK-ad8d5d4eca114b1255ac7798d3d1787d-X',
+    public_key: 'FLWPUBK-d5f9ffa65be83a121705e72e0f6a2679-X',
     tx_ref: Date.now(),
-    amount: 100,
+    amount: 10,
     currency: 'NGN',
     payment_options: 'card,mobilemoney,ussd',
     customer: {
@@ -13,6 +17,30 @@ export default function App() {
       phonenumber: '08102909304',
       name: 'test user',
     },
+    subaccounts: [
+      {
+        id: 'RS_ED071C8796497315BD851F4A0B89DAC9',
+        transaction_split_ratio: 2,
+      },
+      {
+        id: 'RS_1CCEB40AFBC50D0CB3ADAAF102CC974F',
+        transaction_split_ratio: 2,
+      },
+      {
+        id: 'RS_ED071C8796497315BD851F4A0B89DAC9',
+        transaction_split_ratio: 2,
+      },
+
+      {
+        id: 'RS_1CCEB40AFBC50D0CB3ADAAF102CC974F',
+        transaction_split_ratio: 2,
+      },
+      {
+        id: 'RS_ED071C8796497315BD851F4A0B89DAC9',
+        transaction_split_ratio: 2,
+      },
+    ],
+
     customizations: {
       title: 'My store',
       description: 'Payment for items in cart',
@@ -26,13 +54,22 @@ export default function App() {
     console.log(response);
   }
 
-  function handleClose() {}
+  function handleClose() {
+    console.log('You close me!');
+    closePaymentModal();
+  }
 
   const fwConfig = {
     ...config,
     text: 'Pay with Flutterwave!',
-    callback: handleSuccess,
-    onClose: handleClose,
+    callback: (response) => {
+      console.log(response);
+      closePaymentModal();
+    },
+    onClose: () => {
+      console.log('You close me!');
+      closePaymentModal();
+    },
   };
 
   return (
@@ -45,8 +82,11 @@ export default function App() {
           handleFlutterPayment({
             callback: (response) => {
               console.log(response);
+              closePaymentModal();
             },
-            onClose: () => {},
+            onClose: () => {
+              console.log('You close me ooo');
+            },
           });
         }}
       >
