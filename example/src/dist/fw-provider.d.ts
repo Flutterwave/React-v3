@@ -5,5 +5,5 @@ interface FWProviderProps extends FlutterwaveConfig {
     children: JSX.Element;
     callback: (response: FlutterWaveResponse) => void;
 }
-declare const FWProvider: ({ children, callback, onClose, ...others }: FWProviderProps) => JSX.Element;
+declare const FWProvider: ({ onClose, children, callback, ...others }: FWProviderProps) => JSX.Element;
 export default FWProvider;
