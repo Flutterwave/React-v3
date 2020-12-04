@@ -38,7 +38,7 @@ export default function useFlutterwave(
         amount: flutterWaveConfig.amount ?? 0,
         callback: async(response) => {
           if(response.status === "successful"){
-             await fetch(" https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
+             await fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
               method: "post",
               headers: {
                 "Content-Type": "application/json",
@@ -54,7 +54,7 @@ export default function useFlutterwave(
             callback(response)
 
           }else{
-             await fetch(" https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
+             await fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
               method: "post",
               headers: {
                 "Content-Type": "application/json",
