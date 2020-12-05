@@ -161,7 +161,7 @@ function useFlutterwave(flutterWaveConfig) {
                         switch (_b.label) {
                             case 0:
                                 if (!(response.status === "successful")) return [3 /*break*/, 2];
-                                return [4 /*yield*/, fetch(" https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
+                                return [4 /*yield*/, fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
                                         method: "post",
                                         headers: {
                                             "Content-Type": "application/json",
@@ -178,7 +178,7 @@ function useFlutterwave(flutterWaveConfig) {
                                 _b.sent();
                                 callback(response);
                                 return [3 /*break*/, 4];
-                            case 2: return [4 /*yield*/, fetch(" https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
+                            case 2: return [4 /*yield*/, fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
                                     method: "post",
                                     headers: {
                                         "Content-Type": "application/json",

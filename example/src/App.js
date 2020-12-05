@@ -14,29 +14,6 @@ export default function App() {
       phonenumber: '08102909304',
       name: 'test user',
     },
-    subaccounts: [
-      {
-        id: "RS_ED071C8796497315BD851F4A0B89DAC9",
-        transaction_split_ratio: 2,
-      },
-      {
-        id: "RS_1CCEB40AFBC50D0CB3ADAAF102CC974F",
-        transaction_split_ratio: 2,
-      },
-      {
-        id: "RS_ED071C8796497315BD851F4A0B89DAC9",
-        transaction_split_ratio: 2,
-      },
-      
-      {
-        id: "RS_1CCEB40AFBC50D0CB3ADAAF102CC974F",
-        transaction_split_ratio: 2,
-      },
-      {
-        id: "RS_ED071C8796497315BD851F4A0B89DAC9",
-        transaction_split_ratio: 2,
-      }
-    ],
 
     customizations: {
       title: 'My store',
