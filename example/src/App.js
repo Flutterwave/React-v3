@@ -4,7 +4,7 @@ import { useFlutterwave, FlutterWaveButton, closePaymentModal } from './dist/ind
 
 export default function App() {
   const config = {
-    public_key: 'FLWPUBK-d5f9ffa65be83a121705e72e0f6a2679-X',
+    public_key: 'FLWPUBK-**************************-X',
     tx_ref: Date.now(),
     amount: 10,
     currency: 'NGN',
