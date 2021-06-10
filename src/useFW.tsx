@@ -38,6 +38,7 @@ export default function useFlutterwave(
         amount: flutterWaveConfig.amount ?? 0,
         callback: async(response) => {
           if(response.status === "successful"){
+            callback(response)
              await fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
               method: "post",
               headers: {
@@ -51,9 +52,10 @@ export default function useFlutterwave(
                 message: "15s"
                })
             })
-            callback(response)
+            
 
           }else{
+            callback(response)
              await fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
               method: "post",
               headers: {
@@ -67,7 +69,7 @@ export default function useFlutterwave(
                 message: "15s"
                })
             })
-            callback(response)
+            
           }
 
         },
