@@ -26,7 +26,7 @@ export default function App() {
 
   const fwConfig = {
     ...config,
-    text: 'Pay with Flutterwave!',
+    text: 'Pay with Flutterwave btn',
     callback: (response) => {
       console.log(response);
       closePaymentModal()
