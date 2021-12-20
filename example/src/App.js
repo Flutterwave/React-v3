@@ -46,19 +46,6 @@ export default function App() {
         onClick={() => {
           handleFlutterPayment({
             callback: (response) => {
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
-              console.log(" response")
               console.log(response);
               closePaymentModal()
              
@@ -73,7 +60,7 @@ export default function App() {
         Testing FW Payment
       </button>
 
-      {/* <FlutterWaveButton {...fwConfig} /> */}
+      <FlutterWaveButton {...fwConfig} />
     </div>
   );
 }
