@@ -156,6 +156,63 @@ Please checkout [Flutterwave Documentation](https://developer.flutterwave.com/do
 - Use the Live Public API key 
 
 <a id="build-tools"></a>
+
+## Securing Your API key
+Even when using a public key, it would still be safe to secure it.
+Please note that the best way to secure your key is by storing it 
+on the server side!
+However, your public key can be hidden from direct view on your code
+by simply taking the following steps:
+
+1. ### Create a `.env` file at the root of your react app directory
+```- your_project_folder
+  - node_modules
+  - public
+  - src
+  - .env         <-- create it here
+  - .gitignore
+  - package-lock.json
+  - package.json
+```
+
+2. ### Assign REACT_APP_ to your API key
+Inside the .env file, assign the variable name REACT_APP_ to your API key.
+
+```
+// .env file
+REACT_APP_API_KEY=your_api_key
+//For example
+REACT_APP_FLUTTERWAVE_KEY = 012345
+```
+
+3. ### Add the `.env` file to the `.gitignore` file
+```
+// .gitignore file 
+
+# api keys
+.env       <-- add this line
+
+# dependencies
+/node_modules
+```
+After completing the above process, run a `git status` on
+your terminal to ensure the `.env` file does not show in the log
+
+4. ### Reference the API key via the `process.env` object
+In order to confirm you can now access your API key through this 
+object, kindly add a `console.log` to the reference statement like this:
+```
+console.log(process.env.REACT_APP_FLUTTERWAVE_API_KEY)
+```
+If your API key shows on your console, then you have successfully accessed
+your key through the `process.env` object. If your key does not show, 
+try restarting your react app again.
+
+This enables you hide your API key from direct access on the source code.
+
+Please NOTE: this is not a secure method. To keep your key fully safe, render
+it from the server side.
+
 ## Built Using
 
 - [Typescript](https://www.typescriptlang.org/)
