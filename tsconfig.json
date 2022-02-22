@@ -9,7 +9,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "noEmit": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "suppressImplicitAnyIndexErrors": true,
     "strict": true,
     "noImplicitAny": true,

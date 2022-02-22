@@ -69,7 +69,7 @@ export interface FlutterWaveProps {
      * function to be called when the mono connection is closed
      */
     onclose: () => void;
-    public_key: string;
+    public_key: any;
 }
 export interface FlutterwaveConfig {
     public_key: FlutterWaveProps['public_key'];

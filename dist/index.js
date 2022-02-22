@@ -4,14 +4,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var React = require('react');
 
-/**
- * Check out {@link https://developer.flutterwave.com/docs/flutterwave-standard} for more information.
- */
-
-var types = /*#__PURE__*/Object.freeze({
-  __proto__: null
-});
-
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -225,6 +217,5 @@ function closePaymentModal() {
 }
 
 exports.FlutterWaveButton = FlutterWaveButton;
-exports.FlutterWaveTypes = types;
 exports.closePaymentModal = closePaymentModal;
 exports.useFlutterwave = useFlutterwave;
