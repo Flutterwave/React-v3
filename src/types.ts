@@ -2,7 +2,7 @@
  * Check out {@link https://developer.flutterwave.com/docs/flutterwave-standard} for more information.
  */
 
-export interface FlutterWaveProps {
+ export interface FlutterWaveProps {
   /**
    * 	Your transaction reference. This MUST be unique for every transaction
    */
@@ -66,12 +66,25 @@ export interface FlutterWaveProps {
    * function to be called when the payment is completed successfully
    */
   callback: (data: FlutterWaveResponse) => void;
-  
+
   /**
    * function to be called when the mono connection is closed
    */
   onclose: () => void;
   public_key: string;
+  /**
+   * An array of objects containing the subaccount IDs to split the payment into.
+   * e.g subaccounts: [
+      {
+        id: "RS_A8EB7D4D9C66C0B1C75014EE67D4D663",
+        transaction_split_ratio: 2,
+        transaction_charge_type: "flat_subaccount",
+        transaction_charge: 4200,
+      },
+    ]
+    * Check out {@link https://developer.flutterwave.com/docs/collecting-payments/split-payments/} for more information on subaccounts.
+   */
+  subaccounts?: Array<unknown>;
 }
 
 export interface FlutterwaveConfig {
@@ -85,6 +98,7 @@ export interface FlutterwaveConfig {
   redirect_url?: FlutterWaveProps['redirect_url'];
   payment_plan?: FlutterWaveProps['payment_plan'];
   payment_options: FlutterWaveProps['payment_options'];
+  subaccounts?: FlutterWaveProps['subaccounts'];
 }
 
 export interface InitializeFlutterwavePayment {
