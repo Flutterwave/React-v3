@@ -20,6 +20,7 @@ Available features include:
 - Recurring payments: Tokenization and Subscriptions.
 - Split payments
 
+
 ## Table of Contents
 
 1. [Requirements](#requirements)
@@ -29,10 +30,9 @@ Available features include:
 5. [Support](#support)
 6. [Contribution Guidelines](#contribution-guidelines)
 7. [License](#license)
+8. [Contributors](#contributors)
+9. [Changelog](#)
 
-
-
-<a id="requirements"></a>
 
 ## Requirements
 
@@ -40,8 +40,6 @@ Available features include:
 2. Node version >= 6.9.x and npm >= 3.x.x
 3. React version  >= 14
 
-
-<a id="installation"></a>
 
 ## Installation
 
@@ -56,7 +54,6 @@ $ yarn add flutterwave-react-v3
 ```
 
 
-<a id="initialization"></a>
 ## Initialization
 
 Import useFlutterwave to any component in your application and pass your config
@@ -85,18 +82,16 @@ import { useFlutterwave } from 'flutterwave-react-v3';
 
 ```
 
-<a id="usage"></a>
-
 
 ## Usage
 
-You can use Flutterwave in your projects as a component or as a react Hooks:
+Add Flutterwave to your projects as a component or a react hook:
 
-1. [As a Component](#using-flutterwave-as-a-component)
-2. [Directly in your code](#using-flutterwave-as-a-hook)
+1. [As a Component](#components)
+2. [Directly in your code](#hooks)
+3. [Making recurrent payments](#recurring-payments)
 
 
-<a id="using-flutterwave-as-a-component"></a>
 ### Components
 
 ```javascript
@@ -141,8 +136,6 @@ export default function App() {
 }
 ```
 
-
-<a id="using-flutterwave-as-a-hook"></a>
 
 ### Hooks
 
@@ -287,7 +280,6 @@ We understand that you may run into some errors while integrating our library. Y
 For `authorization` and `validation` error responses, double-check your API keys and request. If you get a `server` error, kindly engage the team for support.
 
 
-<a id="support"></a>
 
 # Support
 
@@ -295,7 +287,7 @@ For additional assistance using this library, please create an issue on the Gith
 
 You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and let us know what you think 😊.
 
-<a id="contribution-guidelines"></a>
+
 
 ## Contribution Guidelines
 
@@ -312,20 +304,6 @@ Copyright (c) Flutterwave Inc.
 
 
 
-## Built Using
-
-- [Typescript](https://www.typescriptlang.org/)
-- React
-
-
 ## Contributors
 
 - [Somto Ugeh](https://twitter.com/SomtoUgeh)
-
-
-## Flutterwave API  References
-
-- [Flutterwave API Doc](https://developer.flutterwave.com/docs)
-- [Flutterwave Inline Payment Doc](https://developer.flutterwave.com/docs/flutterwave-inline)
-- [Flutterwave Dashboard](https://dashboard.flutterwave.com/login)  
-
