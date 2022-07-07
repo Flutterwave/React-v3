@@ -32,13 +32,13 @@
    *  This is an object that can contains your customer details.
    * e.g {
    *    'email': 'example@gmail.com',
-   *    'phonenumber': '08012345678',
+   *    'phone_number': '08012345678',
    *    'name': 'Takeshi Kovacs'
    *  }
    */
   customer: {
     email: string;
-    phonenumber: string;
+    phone_number: string;
     name: string;
   };
   /**
