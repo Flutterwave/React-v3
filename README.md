@@ -68,8 +68,8 @@ import { useFlutterwave } from 'flutterwave-react-v3';
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'user@gmail.com',
-      phonenumber: '07064586146',
-      name: 'joel ugwumadu',
+      phone_number: '070********',
+      name: 'john doe',
     },
     customizations: {
       title: 'my Payment Title',
@@ -107,8 +107,8 @@ export default function App() {
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'user@gmail.com',
-      phonenumber: '07064586146',
-      name: 'joel ugwumadu',
+      phone_number: '070********',
+      name: 'john doe',
     },
     customizations: {
       title: 'My store',
@@ -152,8 +152,8 @@ export default function App() {
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'user@gmail.com',
-      phonenumber: '07064586146',
-      name: 'joel ugwumadu',
+       phone_number: '070********',
+      name: 'john doe',
     },
     customizations: {
       title: 'my Payment Title',
@@ -205,8 +205,8 @@ export default function App() {
     payment_plan="3341",
     customer: {
       email: 'user@gmail.com',
-      phonenumber: '07064586146',
-      name: 'joel ugwumadu',
+      phone_number: '070********',
+      name: 'john doe',
     },
     meta = { counsumer_id: "7898", consumer_mac: "kjs9s8ss7dd" },
     customizations: {
@@ -254,7 +254,7 @@ Read more about our parameters and how they can be used [here](https://developer
 | payment_options     | True              | This specifies the payment options to be displayed e.g - card, mobilemoney, ussd and so on.                                                                                                                                             |
 | payment_plan        | False             | This is the payment plan ID used for Recurring billing                                                                                                                                                                                  |
 | redirect_url        | False             | URL to redirect to when a transaction is completed. This is useful for 3DSecure payments so we can redirect your customer back to a custom page you want to show them.                                                                  |
-| customer            | True              | This is an object that can contains your customer details: e.g - 'customer': {'email': 'example@example.com','phonenumber': '08012345678','name': 'Takeshi Kovacs' }                                                                    |
+| customer            | True              | This is an object that can contains your customer details: e.g - 'customer': {'email': 'example@example.com','phone_number': '08012345678','name': 'Takeshi Kovacs' }                                                                    |
 | subaccounts         | False             | This is an array of objects containing the subaccount IDs to split the payment into. Check our Split Payment page for more info                                                                                                         |
 | meta                | False             | This is an object that helps you include additional payment information to your request e.g {'consumer_id': 23,'consumer_mac': '92a3-912ba-1192a' }                                                                                     |
 | customizations      | True              | This is an object that contains title, logo, and description you want to display on the modal e.g{'title': 'Pied Piper Payments','description': 'Middleout isn't free. Pay the price','logo': 'https://assets.piedpiper.com/logo.png' } |
