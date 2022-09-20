@@ -11,7 +11,7 @@ export default function App() {
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'user@gmail.com',
-      phonenumber: '08102909304',
+      phone_number: '08102909304',
       name: 'test user',
     },
 

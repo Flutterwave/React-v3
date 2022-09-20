@@ -31,13 +31,13 @@ export interface FlutterWaveProps {
      *  This is an object that can contains your customer details.
      * e.g {
      *    'email': 'example@gmail.com',
-     *    'phonenumber': '08012345678',
+     *    'phone_number': '08012345678',
      *    'name': 'Takeshi Kovacs'
      *  }
      */
     customer: {
         email: string;
-        phonenumber: string;
+        phone_number: string;
         name: string;
     };
     /**
@@ -70,6 +70,19 @@ export interface FlutterWaveProps {
      */
     onclose: () => void;
     public_key: string;
+    /**
+     * An array of objects containing the subaccount IDs to split the payment into.
+     * e.g subaccounts: [
+        {
+          id: "RS_A8EB7D4D9C66C0B1C75014EE67D4D663",
+          transaction_split_ratio: 2,
+          transaction_charge_type: "flat_subaccount",
+          transaction_charge: 4200,
+        },
+      ]
+      * Check out {@link https://developer.flutterwave.com/docs/collecting-payments/split-payments/} for more information on subaccounts.
+     */
+    subaccounts?: Array<unknown>;
 }
 export interface FlutterwaveConfig {
     public_key: FlutterWaveProps['public_key'];
@@ -82,6 +95,7 @@ export interface FlutterwaveConfig {
     redirect_url?: FlutterWaveProps['redirect_url'];
     payment_plan?: FlutterWaveProps['payment_plan'];
     payment_options: FlutterWaveProps['payment_options'];
+    subaccounts?: FlutterWaveProps['subaccounts'];
 }
 export interface InitializeFlutterwavePayment {
     onClose: FlutterWaveProps['onclose'];
