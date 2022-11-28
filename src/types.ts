@@ -114,4 +114,5 @@ export interface FlutterWaveResponse {
   flw_ref: string;
   status: string;
   transaction_id: number;
+  charged_amount: number;
 }
