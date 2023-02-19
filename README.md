@@ -201,14 +201,14 @@ export default function App() {
     tx_ref: Date.now(),
     amount: 100,
     currency: 'NGN',
-     payment_options="card",
-    payment_plan="3341",
+     payment_options:"card",
+    payment_plan:"3341",
     customer: {
       email: 'user@gmail.com',
       phone_number: '070********',
       name: 'john doe',
     },
-    meta = { counsumer_id: "7898", consumer_mac: "kjs9s8ss7dd" },
+    meta : { counsumer_id: "7898", consumer_mac: "kjs9s8ss7dd" },
     customizations: {
       title: 'my Payment Title',
       description: 'Payment for items in cart',
