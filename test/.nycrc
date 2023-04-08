@@ -1,0 +1,11 @@
+
+{
+  "coverage": "test",
+  "check-coverage": true,
+  "functions": 50,
+  "lines": 50,
+  "report-dir": "./coverage",
+  "reporter": [
+    "lcov"
+  ]
+}
