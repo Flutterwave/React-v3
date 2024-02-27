@@ -1,4 +1,4 @@
-import { useState, useEffect, createElement } from 'react';
+import * as React from 'react';
 
 /**
  * Check out {@link https://developer.flutterwave.com/docs/flutterwave-standard} for more information.
@@ -8,7 +8,7 @@ var types = /*#__PURE__*/Object.freeze({
   __proto__: null
 });
 
-/*! *****************************************************************************
+/******************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -62,7 +62,7 @@ function __generator(thisArg, body) {
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
+        while (g && (g = 0, op[0] && (_ = 0)), _) try {
             if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
             if (y = 0, t) op = [op[0] & 2, t.value];
             switch (op[0]) {
@@ -85,45 +85,61 @@ function __generator(thisArg, body) {
 }
 
 var loadedScripts = {};
-var src = 'https://checkout.flutterwave.com/v3.js';
+var srcUrl = 'https://checkout.flutterwave.com/v3.js';
+var maxAttempts = 3; // Set the maximum number of attempts
+var attempt = 1; // Track the attempt count
 function useFWScript() {
-    var _a = useState({
+    var _a = React.useState({
         loaded: false,
         error: false,
     }), state = _a[0], setState = _a[1];
-    useEffect(function () {
-        if (loadedScripts.hasOwnProperty(src)) {
+    React.useEffect(function () {
+        if (loadedScripts.hasOwnProperty('src')) {
             setState({
                 loaded: true,
                 error: false,
             });
         }
         else {
-            loadedScripts.src = src;
-            var script_1 = document.createElement('script');
-            script_1.src = src;
-            script_1.async = true;
-            var onScriptLoad_1 = function () {
-                setState({
-                    loaded: true,
-                    error: false,
-                });
-            };
-            var onScriptError_1 = function () {
-                delete loadedScripts.src;
-                setState({
-                    loaded: true,
-                    error: true,
-                });
-            };
-            script_1.addEventListener('load', onScriptLoad_1);
-            script_1.addEventListener('complete', onScriptLoad_1);
-            script_1.addEventListener('error', onScriptError_1);
-            document.body.appendChild(script_1);
+            downloadScript();
             return function () {
-                script_1.removeEventListener('load', onScriptLoad_1);
-                script_1.removeEventListener('error', onScriptError_1);
+                var scripts = document.querySelectorAll('script');
+                scripts.forEach(function (script) {
+                    if (script.src === srcUrl) {
+                        script.removeEventListener('load', onScriptLoad);
+                        script.removeEventListener('error', onScriptError);
+                    }
+                });
             };
+        }
+    }, []);
+    var downloadScript = React.useCallback(function () {
+        loadedScripts.src = srcUrl;
+        var script = document.createElement('script');
+        script.src = srcUrl;
+        script.async = true;
+        script.addEventListener('load', onScriptLoad);
+        script.addEventListener('error', onScriptError);
+        document.body.appendChild(script);
+    }, []);
+    var onScriptLoad = React.useCallback(function () {
+        setState({
+            loaded: true,
+            error: false,
+        });
+    }, []);
+    var onScriptError = React.useCallback(function () {
+        delete loadedScripts.src;
+        console.log("Script download failed. Attempt: " + attempt);
+        if (attempt < maxAttempts) {
+            ++attempt;
+            setTimeout(function () { return downloadScript(); }, (attempt * 1000)); // Progressively increase the delay before retry
+        }
+        else {
+            setState({
+                loaded: true,
+                error: true,
+            });
         }
     }, []);
     return [state.loaded, state.error];
@@ -136,7 +152,7 @@ function useFWScript() {
  */
 function useFlutterwave(flutterWaveConfig) {
     var _a = useFWScript(), loaded = _a[0], error = _a[1];
-    useEffect(function () {
+    React.useEffect(function () {
         if (error)
             throw new Error('Unable to load flutterwave payment modal');
     }, [error]);
@@ -209,7 +225,7 @@ function useFlutterwave(flutterWaveConfig) {
 var FlutterWaveButton = function (_a) {
     var text = _a.text, className = _a.className, children = _a.children, callback = _a.callback, onClose = _a.onClose, disabled = _a.disabled, config = __rest(_a, ["text", "className", "children", "callback", "onClose", "disabled"]);
     var handleFlutterwavePayment = useFlutterwave(config);
-    return (createElement("button", { disabled: disabled, className: className, onClick: function () { return handleFlutterwavePayment({ callback: callback, onClose: onClose }); } }, text || children));
+    return (React.createElement("button", { disabled: disabled, className: className, onClick: function () { return handleFlutterwavePayment({ callback: callback, onClose: onClose }); } }, text || children));
 };
 
 /**
