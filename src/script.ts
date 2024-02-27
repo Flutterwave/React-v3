@@ -9,7 +9,9 @@ interface ScriptStatusInterface {
   error: boolean;
 }
 
-const src = 'https://checkout.flutterwave.com/v3.js';
+const srcUrl = 'https://checkout.flutterwave.com/v3.js';
+const maxAttempts = 3; // Set the maximum number of attempts
+let attempt = 1;// Track the attempt count
 
 export default function useFWScript(): readonly [boolean, boolean] {
   const [state, setState] = React.useState<ScriptStatusInterface>({
@@ -18,44 +20,61 @@ export default function useFWScript(): readonly [boolean, boolean] {
   });
 
   React.useEffect((): (() => void) | void => {
-    if (loadedScripts.hasOwnProperty(src)) {
+    if (loadedScripts.hasOwnProperty('src')) {
       setState({
         loaded: true,
         error: false,
       });
     } else {
-      loadedScripts.src = src;
-
-      const script = document.createElement('script');
-      script.src = src;
-      script.async = true;
-
-      const onScriptLoad = (): void => {
-        setState({
-          loaded: true,
-          error: false,
-        });
-      };
-
-      const onScriptError = (): void => {
-        delete loadedScripts.src;
-
-        setState({
-          loaded: true,
-          error: true,
-        });
-      };
-
-      script.addEventListener('load', onScriptLoad);
-      script.addEventListener('complete', onScriptLoad);
-      script.addEventListener('error', onScriptError);
-
-      document.body.appendChild(script);
+      downloadScript();
 
       return () => {
-        script.removeEventListener('load', onScriptLoad);
-        script.removeEventListener('error', onScriptError);
+        const scripts = document.querySelectorAll('script');
+
+        scripts.forEach(script => {
+          if (script.src === srcUrl) {
+            script.removeEventListener('load', onScriptLoad);
+            script.removeEventListener('error', onScriptError);
+          }
+        });
       };
+    }
+  }, []);
+
+  const downloadScript = React.useCallback((): void => {
+    loadedScripts.src = srcUrl;
+
+    const script = document.createElement('script');
+    script.src = srcUrl;
+    script.async = true;
+
+    script.addEventListener('load', onScriptLoad);
+    script.addEventListener('error', onScriptError);
+
+    document.body.appendChild(script);
+  }, []);
+
+  const onScriptLoad = React.useCallback((): void => {
+    setState({
+      loaded: true,
+      error: false,
+    });
+  }, []);
+
+  const onScriptError = React.useCallback((): void => {
+    delete loadedScripts.src;
+
+    console.log(`Flutterwave script download failed. Attempt: ${attempt}`);
+
+    if (attempt < maxAttempts) {
+      ++attempt;
+
+      setTimeout(() => downloadScript(), (attempt * 1000)); // Progressively increase the delay before retry
+    } else {
+      setState({
+        loaded: true,
+        error: true,
+      });
     }
   }, []);
 
