@@ -64,7 +64,7 @@ export default function useFWScript(): readonly [boolean, boolean] {
   const onScriptError = React.useCallback((): void => {
     delete loadedScripts.src;
 
-    console.log(`Script download failed. Attempt: ${attempt}`);
+    console.log(`Flutterwave script download failed. Attempt: ${attempt}`);
 
     if (attempt < maxAttempts) {
       ++attempt;

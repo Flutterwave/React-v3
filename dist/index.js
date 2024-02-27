@@ -154,7 +154,7 @@ function useFWScript() {
     }, []);
     var onScriptError = React__namespace.useCallback(function () {
         delete loadedScripts.src;
-        console.log("Script download failed. Attempt: " + attempt);
+        console.log("Flutterwave script download failed. Attempt: " + attempt);
         if (attempt < maxAttempts) {
             ++attempt;
             setTimeout(function () { return downloadScript(); }, (attempt * 1000)); // Progressively increase the delay before retry
