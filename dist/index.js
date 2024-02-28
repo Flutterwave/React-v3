@@ -110,16 +110,20 @@ function __generator(thisArg, body) {
 
 var loadedScripts = {};
 var srcUrl = 'https://checkout.flutterwave.com/v3.js';
+var DEFAULT_VALUE = 3;
 var attempt = 1; // Track the attempt count
+function isNumber(value) {
+    return typeof value === 'number';
+}
 function useFWScript(_a) {
-    var _b = _a.maxAttempt, maxAttempt = _b === void 0 ? 3 : _b, _c = _a.retryDuration, retryDuration = _c === void 0 ? 3 : _c;
+    var _b = _a.maxAttempt, maxAttempt = _b === void 0 ? DEFAULT_VALUE : _b, _c = _a.retryDuration, retryDuration = _c === void 0 ? DEFAULT_VALUE : _c;
     var _d = React__namespace.useState({
         loaded: false,
         error: false,
     }), state = _d[0], setState = _d[1];
-    // Prevent values lower than 1
-    maxAttempt = maxAttempt < 1 ? 1 : maxAttempt;
-    retryDuration = retryDuration < 1 ? 1 : retryDuration;
+    // Validate and sanitize variables
+    maxAttempt = isNumber(maxAttempt) ? Math.max(1, maxAttempt) : DEFAULT_VALUE; // Ensure minimum of 1 for maxAttempt, revert to the default value otherwise
+    retryDuration = isNumber(retryDuration) ? Math.max(1, retryDuration) : DEFAULT_VALUE; // Ensure minimum of 1 for retryDuration, revert to the default value otherwise
     React__namespace.useEffect(function () {
         if (loadedScripts.hasOwnProperty('src')) {
             setState({

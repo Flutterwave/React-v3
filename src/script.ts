@@ -11,17 +11,22 @@ interface ScriptStatusInterface {
 }
 
 const srcUrl = 'https://checkout.flutterwave.com/v3.js';
+const DEFAULT_VALUE = 3;
 let attempt = 1;// Track the attempt count
 
-export default function useFWScript({ maxAttempt = 3, retryDuration = 3 }: ScriptDownloadRetryStrategy): readonly [boolean, boolean] {
+function isNumber(value: any): value is number {
+  return typeof value === 'number';
+}
+
+export default function useFWScript({ maxAttempt = DEFAULT_VALUE, retryDuration = DEFAULT_VALUE }: ScriptDownloadRetryStrategy): readonly [boolean, boolean] {
   const [state, setState] = React.useState<ScriptStatusInterface>({
     loaded: false,
     error: false,
   });
 
-  // Prevent values lower than 1
-  maxAttempt = maxAttempt < 1 ? 1 : maxAttempt;
-  retryDuration = retryDuration < 1 ? 1 : retryDuration;
+  // Validate and sanitize variables
+  maxAttempt = isNumber(maxAttempt) ? Math.max(1, maxAttempt) : DEFAULT_VALUE; // Ensure minimum of 1 for maxAttempt, revert to the default value otherwise
+  retryDuration = isNumber(retryDuration) ? Math.max(1, retryDuration) : DEFAULT_VALUE; // Ensure minimum of 1 for retryDuration, revert to the default value otherwise
 
   React.useEffect((): (() => void) | void => {
     if (loadedScripts.hasOwnProperty('src')) {
