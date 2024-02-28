@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ScriptDownloadRetryStrategy } from './types';
 
 const loadedScripts: {
   src?: string;
@@ -10,14 +11,17 @@ interface ScriptStatusInterface {
 }
 
 const srcUrl = 'https://checkout.flutterwave.com/v3.js';
-const maxAttempts = 3; // Set the maximum number of attempts
 let attempt = 1;// Track the attempt count
 
-export default function useFWScript(): readonly [boolean, boolean] {
+export default function useFWScript({ maxAttempt = 3, retryDuration = 3 }: ScriptDownloadRetryStrategy): readonly [boolean, boolean] {
   const [state, setState] = React.useState<ScriptStatusInterface>({
     loaded: false,
     error: false,
   });
+
+  // Prevent values lower than 1
+  maxAttempt = maxAttempt < 1 ? 1 : maxAttempt;
+  retryDuration = retryDuration < 1 ? 1 : retryDuration;
 
   React.useEffect((): (() => void) | void => {
     if (loadedScripts.hasOwnProperty('src')) {
@@ -64,12 +68,12 @@ export default function useFWScript(): readonly [boolean, boolean] {
   const onScriptError = React.useCallback((): void => {
     delete loadedScripts.src;
 
+    // eslint-disable-next-line no-console
     console.log(`Flutterwave script download failed. Attempt: ${attempt}`);
 
-    if (attempt < maxAttempts) {
+    if (attempt < maxAttempt) {
       ++attempt;
-
-      setTimeout(() => downloadScript(), (attempt * 1000)); // Progressively increase the delay before retry
+      setTimeout(() => downloadScript(), (retryDuration * 1000));
     } else {
       setState({
         loaded: true,

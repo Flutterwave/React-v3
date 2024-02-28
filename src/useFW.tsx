@@ -14,10 +14,10 @@ import {
 export default function useFlutterwave(
   flutterWaveConfig: FlutterwaveConfig
 ): ({ callback, onClose }: InitializeFlutterwavePayment) => void {
-  const [loaded, error] = useFWScript();
+  const [loaded, error] = useFWScript({ ...(flutterWaveConfig?.scriptDownloadRetryStrategy) });
 
   React.useEffect(() => {
-    if (error) throw new Error('Unable to load flutterwave payment modal');
+    if (error) throw new Error('We\'re having trouble loading the Flutterwave payment modal due to a network issue. Please check your internet connection and try again later.');
   }, [error]);
 
   /**
@@ -28,47 +28,45 @@ export default function useFlutterwave(
     callback,
     onClose,
   }: InitializeFlutterwavePayment): void {
-    if (error) throw new Error('Unable to load flutterwave payment modal');
-    
-   
+    if (error) throw new Error('We\'re having trouble loading the Flutterwave payment modal due to a network issue. Please check your internet connection and try again later.');
 
     if (loaded) {
       const flutterwaveArgs: FlutterWaveProps = {
         ...flutterWaveConfig,
         amount: flutterWaveConfig.amount ?? 0,
         callback: async(response) => {
-          if(response.status === "successful"){
-            callback(response)
-             await fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
-              method: "post",
+          if(response.status === 'successful'){
+            callback(response);
+             await fetch('https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent', {
+              method: 'post',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               body: JSON.stringify({
                 publicKey: flutterWaveConfig.public_key,
-                language: "Flutterwave-React-v3",
-                version: "1.0.7",
-                title: `${flutterWaveConfig?.payment_options.split(",").length>1?"Initiate-Charge-Multiple": `Initiate-Charge-${flutterWaveConfig?.payment_options}`}`,
-                message: "15s"
+                language: 'Flutterwave-React-v3',
+                version: '1.0.7',
+                title: `${flutterWaveConfig?.payment_options.split(',').length>1?'Initiate-Charge-Multiple': `Initiate-Charge-${flutterWaveConfig?.payment_options}`}`,
+                message: '15s'
                })
-            })
+            });
             
 
           }else{
-            callback(response)
-             await fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
-              method: "post",
+            callback(response);
+             await fetch('https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent', {
+              method: 'post',
               headers: {
-                "Content-Type": "application/json",
+                'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                publicKey: flutterWaveConfig.public_key ?? "",
-                language: "Flutterwave-React-v3",
-                version: "1.0.7",
-                title: `${flutterWaveConfig?.payment_options.split(",").length>1?"Initiate-Charge-Multiple-error": `Initiate-Charge-${flutterWaveConfig?.payment_options}-error`}`,
-                message: "15s"
+                publicKey: flutterWaveConfig.public_key ?? '',
+                language: 'Flutterwave-React-v3',
+                version: '1.0.7',
+                title: `${flutterWaveConfig?.payment_options.split(',').length>1?'Initiate-Charge-Multiple-error': `Initiate-Charge-${flutterWaveConfig?.payment_options}-error`}`,
+                message: '15s'
                })
-            })
+            });
             
           }
 

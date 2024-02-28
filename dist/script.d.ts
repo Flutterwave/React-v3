@@ -1,1 +1,2 @@
-export default function useFWScript(): readonly [boolean, boolean];
+import { ScriptDownloadRetryStrategy } from './types';
+export default function useFWScript({ maxAttempt, retryDuration }: ScriptDownloadRetryStrategy): readonly [boolean, boolean];
