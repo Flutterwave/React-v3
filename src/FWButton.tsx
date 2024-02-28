@@ -20,13 +20,15 @@ const FlutterWaveButton = ({
   disabled,
   ...config
 }: FlutterWaveButtonProps): JSX.Element => {
-  const handleFlutterwavePayment = useFlutterwave(config);
+  const handleButtonClick = React.useCallback((): void => {
+    useFlutterwave(config)({ callback, onClose });
+  }, []);
 
   return (
     <button
       disabled={disabled}
       className={className}
-      onClick={() => handleFlutterwavePayment({ callback, onClose })}
+      onClick={handleButtonClick}
     >
       {text || children}
     </button>

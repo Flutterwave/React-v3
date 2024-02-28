@@ -96,7 +96,7 @@ export interface FlutterwaveConfig {
     payment_plan?: FlutterWaveProps['payment_plan'];
     payment_options: FlutterWaveProps['payment_options'];
     subaccounts?: FlutterWaveProps['subaccounts'];
-    scriptDownloadRetryStrategy?: ScriptDownloadRetryStrategy;
+    retry?: ScriptDownloadRetryStrategy;
 }
 export interface InitializeFlutterwavePayment {
     onClose: FlutterWaveProps['onclose'];
@@ -113,5 +113,5 @@ export interface FlutterWaveResponse {
 }
 export interface ScriptDownloadRetryStrategy {
     maxAttempt?: number;
-    retryDuration?: number;
+    interval?: number;
 }
