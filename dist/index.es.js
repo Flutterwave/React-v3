@@ -215,10 +215,8 @@ function useFlutterwave(flutterWaveConfig) {
 
 var FlutterWaveButton = function (_a) {
     var text = _a.text, className = _a.className, children = _a.children, callback = _a.callback, onClose = _a.onClose, disabled = _a.disabled, config = __rest(_a, ["text", "className", "children", "callback", "onClose", "disabled"]);
-    var handleButtonClick = React.useCallback(function () {
-        useFlutterwave(config)({ callback: callback, onClose: onClose });
-    }, []);
-    return (React.createElement("button", { disabled: disabled, className: className, onClick: handleButtonClick }, text || children));
+    var handleFlutterPayment = useFlutterwave(config);
+    return (React.createElement("button", { disabled: disabled, className: className, onClick: function () { return handleFlutterPayment({ callback: callback, onClose: onClose }); } }, text || children));
 };
 
 /**
