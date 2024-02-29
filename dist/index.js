@@ -108,148 +108,141 @@ function __generator(thisArg, body) {
     }
 }
 
-var loadedScripts = {};
 var srcUrl = 'https://checkout.flutterwave.com/v3.js';
-var maxAttempts = 3; // Set the maximum number of attempts
+var MAX_ATTEMPT_DEFAULT_VALUE = 3;
+var INTERVAL_DEFAULT_VALUE = 1;
 var attempt = 1; // Track the attempt count
-function useFWScript() {
-    var _a = React__namespace.useState({
-        loaded: false,
-        error: false,
-    }), state = _a[0], setState = _a[1];
-    React__namespace.useEffect(function () {
-        if (loadedScripts.hasOwnProperty('src')) {
-            setState({
-                loaded: true,
-                error: false,
-            });
-        }
-        else {
-            downloadScript();
-            return function () {
-                var scripts = document.querySelectorAll('script');
-                scripts.forEach(function (script) {
-                    if (script.src === srcUrl) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function isNumber(value) {
+    return typeof value === 'number';
+}
+function useFWScript(_a) {
+    var _b = _a.maxAttempt, maxAttempt = _b === void 0 ? MAX_ATTEMPT_DEFAULT_VALUE : _b, _c = _a.interval, interval = _c === void 0 ? INTERVAL_DEFAULT_VALUE : _c;
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_d) {
+            // Validate and sanitize variables
+            maxAttempt = isNumber(maxAttempt) ? Math.max(1, maxAttempt) : MAX_ATTEMPT_DEFAULT_VALUE; // Ensure minimum of 1 for maxAttempt, revert to the default value otherwise
+            interval = isNumber(interval) ? Math.max(1, interval) : INTERVAL_DEFAULT_VALUE; // Ensure minimum of 1 for retryDuration, revert to the default value otherwise
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    var script = document.createElement('script');
+                    script.src = srcUrl;
+                    script.async = true;
+                    var onScriptLoad = function () {
                         script.removeEventListener('load', onScriptLoad);
                         script.removeEventListener('error', onScriptError);
-                    }
-                });
-            };
-        }
-    }, []);
-    var downloadScript = React__namespace.useCallback(function () {
-        loadedScripts.src = srcUrl;
-        var script = document.createElement('script');
-        script.src = srcUrl;
-        script.async = true;
-        script.addEventListener('load', onScriptLoad);
-        script.addEventListener('error', onScriptError);
-        document.body.appendChild(script);
-    }, []);
-    var onScriptLoad = React__namespace.useCallback(function () {
-        setState({
-            loaded: true,
-            error: false,
+                        resolve();
+                    };
+                    var onScriptError = function () {
+                        document.body.removeChild(script);
+                        // eslint-disable-next-line no-console
+                        console.log("Flutterwave script download failed. Attempt: " + attempt);
+                        if (attempt < maxAttempt) {
+                            ++attempt;
+                            setTimeout(function () { return useFWScript({ maxAttempt: maxAttempt, interval: interval }).then(resolve).catch(reject); }, (interval * 1000));
+                        }
+                        else {
+                            reject(new Error('Failed to load payment modal. Check your internet connection and retry later.'));
+                        }
+                    };
+                    script.addEventListener('load', onScriptLoad);
+                    script.addEventListener('error', onScriptError);
+                    document.body.appendChild(script);
+                })];
         });
-    }, []);
-    var onScriptError = React__namespace.useCallback(function () {
-        delete loadedScripts.src;
-        console.log("Flutterwave script download failed. Attempt: " + attempt);
-        if (attempt < maxAttempts) {
-            ++attempt;
-            setTimeout(function () { return downloadScript(); }, (attempt * 1000)); // Progressively increase the delay before retry
-        }
-        else {
-            setState({
-                loaded: true,
-                error: true,
-            });
-        }
-    }, []);
-    return [state.loaded, state.error];
+    });
 }
 
+var isFWScriptLoading = false;
 /**
  *
  * @param config takes in configuration for flutterwave
  * @returns handleFlutterwavePayment function
  */
 function useFlutterwave(flutterWaveConfig) {
-    var _a = useFWScript(), loaded = _a[0], error = _a[1];
-    React__namespace.useEffect(function () {
-        if (error)
-            throw new Error('Unable to load flutterwave payment modal');
-    }, [error]);
     /**
      *
      * @param object - {callback, onClose}
      */
-    function handleFlutterwavePayment(_a) {
-        var _this = this;
+    return function handleFlutterwavePayment(_a) {
         var _b, _c;
         var callback = _a.callback, onClose = _a.onClose;
-        if (error)
-            throw new Error('Unable to load flutterwave payment modal');
-        if (loaded) {
-            var flutterwaveArgs = __assign(__assign({}, flutterWaveConfig), { amount: (_b = flutterWaveConfig.amount) !== null && _b !== void 0 ? _b : 0, callback: function (response) { return __awaiter(_this, void 0, void 0, function () {
-                    var _a;
-                    return __generator(this, function (_b) {
-                        switch (_b.label) {
-                            case 0:
-                                if (!(response.status === "successful")) return [3 /*break*/, 2];
-                                callback(response);
-                                return [4 /*yield*/, fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
-                                        method: "post",
-                                        headers: {
-                                            "Content-Type": "application/json",
-                                        },
-                                        body: JSON.stringify({
-                                            publicKey: flutterWaveConfig.public_key,
-                                            language: "Flutterwave-React-v3",
-                                            version: "1.0.7",
-                                            title: "" + ((flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options.split(",").length) > 1 ? "Initiate-Charge-Multiple" : "Initiate-Charge-" + (flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options)),
-                                            message: "15s"
-                                        })
-                                    })];
-                            case 1:
-                                _b.sent();
-                                return [3 /*break*/, 4];
-                            case 2:
-                                callback(response);
-                                return [4 /*yield*/, fetch("https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent", {
-                                        method: "post",
-                                        headers: {
-                                            "Content-Type": "application/json",
-                                        },
-                                        body: JSON.stringify({
-                                            publicKey: (_a = flutterWaveConfig.public_key) !== null && _a !== void 0 ? _a : "",
-                                            language: "Flutterwave-React-v3",
-                                            version: "1.0.7",
-                                            title: "" + ((flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options.split(",").length) > 1 ? "Initiate-Charge-Multiple-error" : "Initiate-Charge-" + (flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) + "-error"),
-                                            message: "15s"
-                                        })
-                                    })];
-                            case 3:
-                                _b.sent();
-                                _b.label = 4;
-                            case 4: return [2 /*return*/];
+        return __awaiter(this, void 0, void 0, function () {
+            var flutterwaveArgs;
+            var _this = this;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        if (isFWScriptLoading) {
+                            return [2 /*return*/];
                         }
-                    });
-                }); }, onclose: onClose, payment_options: (_c = flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) !== null && _c !== void 0 ? _c : 'card, ussd, mobilemoney' });
-            return (
-            // @ts-ignore
-            window.FlutterwaveCheckout &&
-                // @ts-ignore
-                window.FlutterwaveCheckout(flutterwaveArgs));
-        }
-    }
-    return handleFlutterwavePayment;
+                        if (!!window.FlutterwaveCheckout) return [3 /*break*/, 2];
+                        isFWScriptLoading = true;
+                        return [4 /*yield*/, useFWScript(__assign({}, flutterWaveConfig.retry))];
+                    case 1:
+                        _d.sent();
+                        isFWScriptLoading = false;
+                        _d.label = 2;
+                    case 2:
+                        flutterwaveArgs = __assign(__assign({}, flutterWaveConfig), { amount: (_b = flutterWaveConfig.amount) !== null && _b !== void 0 ? _b : 0, callback: function (response) { return __awaiter(_this, void 0, void 0, function () {
+                                var _a;
+                                return __generator(this, function (_b) {
+                                    switch (_b.label) {
+                                        case 0:
+                                            if (!(response.status === 'successful')) return [3 /*break*/, 2];
+                                            callback(response);
+                                            return [4 /*yield*/, fetch('https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent', {
+                                                    method: 'post',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                    },
+                                                    body: JSON.stringify({
+                                                        publicKey: flutterWaveConfig.public_key,
+                                                        language: 'Flutterwave-React-v3',
+                                                        version: '1.0.7',
+                                                        title: "" + ((flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options.split(',').length) > 1 ? 'Initiate-Charge-Multiple' : "Initiate-Charge-" + (flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options)),
+                                                        message: '15s'
+                                                    })
+                                                })];
+                                        case 1:
+                                            _b.sent();
+                                            return [3 /*break*/, 4];
+                                        case 2:
+                                            callback(response);
+                                            return [4 /*yield*/, fetch('https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent', {
+                                                    method: 'post',
+                                                    headers: {
+                                                        'Content-Type': 'application/json',
+                                                    },
+                                                    body: JSON.stringify({
+                                                        publicKey: (_a = flutterWaveConfig.public_key) !== null && _a !== void 0 ? _a : '',
+                                                        language: 'Flutterwave-React-v3',
+                                                        version: '1.0.7',
+                                                        title: "" + ((flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options.split(',').length) > 1 ? 'Initiate-Charge-Multiple-error' : "Initiate-Charge-" + (flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) + "-error"),
+                                                        message: '15s'
+                                                    })
+                                                })];
+                                        case 3:
+                                            _b.sent();
+                                            _b.label = 4;
+                                        case 4: return [2 /*return*/];
+                                    }
+                                });
+                            }); }, onclose: onClose, payment_options: (_c = flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) !== null && _c !== void 0 ? _c : 'card, ussd, mobilemoney' });
+                        // @ts-ignore
+                        window.FlutterwaveCheckout(flutterwaveArgs);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
 }
 
 var FlutterWaveButton = function (_a) {
     var text = _a.text, className = _a.className, children = _a.children, callback = _a.callback, onClose = _a.onClose, disabled = _a.disabled, config = __rest(_a, ["text", "className", "children", "callback", "onClose", "disabled"]);
-    var handleFlutterwavePayment = useFlutterwave(config);
-    return (React__namespace.createElement("button", { disabled: disabled, className: className, onClick: function () { return handleFlutterwavePayment({ callback: callback, onClose: onClose }); } }, text || children));
+    var handleButtonClick = React__namespace.useCallback(function () {
+        useFlutterwave(config)({ callback: callback, onClose: onClose });
+    }, []);
+    return (React__namespace.createElement("button", { disabled: disabled, className: className, onClick: handleButtonClick }, text || children));
 };
 
 /**
