@@ -12,7 +12,7 @@
 
 ## Introduction
 
-The React SDK helps you create seamless payment experiences in your React mobile or web app. By connecting to our modal, you can start collecting payment in no time.
+The React SDK helps you create seamless payment experiences in your React mobile or web app. By connecting to our modal, you can start collecting payments in no time.
 
 Available features include:
 
@@ -85,7 +85,7 @@ import { useFlutterwave } from 'flutterwave-react-v3';
 
 ## Usage
 
-Add Flutterwave to your projects as a component or a react hook:
+Add Flutterwave to your projects as a component or a React hook:
 
 1. [As a Component](#components)
 2. [Directly in your code](#hooks)
@@ -188,7 +188,7 @@ export default function App() {
 
 ### Recurring Payments
 
-Pass the payment plan ID into your payload to make [recurring payments](https://developer.flutterwave.com/docs/recurring-payments/payment-plans).
+Pass the payment plan ID into your payload to make [recurring payments](https://developer.flutterwave.com/v3.0.0/docs/payment-plans-1).
 
 
 ```javascript
@@ -242,24 +242,24 @@ export default function App() {
 
 ### Parameters
 
-Read more about our parameters and how they can be used [here](https://developer.flutterwave.com/docs/collecting-payments/inline).
+Read more about our parameters and how they can be used [here](https://developer.flutterwave.com/v3.0.0/docs/inline).
 
-| Parameter           | Always Required ? | Description                                                                                                                                                                                                                             |
+| Parameter           | Always Required? | Description                                                                                                                                                                                                                             |
 | ------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | public_key          | True              | Your API public key                                                                                                                                                                                                                     |
 | tx_ref              | True              | Your transaction reference. This MUST be unique for every transaction                                                                                                                                                                   |
 | amount              | True              | Amount to charge the customer.                                                                                                                                                                                                          |
 | currency            | False             | currency to charge in. Defaults to NGN                                                                                                                                                                                                  |
 | integrity_hash      | False             | This is a sha256 hash of your FlutterwaveCheckout values, it is used for passing secured values to the payment gateway.                                                                                                                 |
-| payment_options     | True              | This specifies the payment options to be displayed e.g - card, mobilemoney, ussd and so on.                                                                                                                                             |
+| payment_options     | True              | This specifies the payment options to be displayed e.g - card, mobilemoney, ussd, and so on.                                                                                                                                             |
 | payment_plan        | False             | This is the payment plan ID used for Recurring billing                                                                                                                                                                                  |
-| redirect_url        | False             | URL to redirect to when a transaction is completed. This is useful for 3DSecure payments so we can redirect your customer back to a custom page you want to show them.                                                                  |
-| customer            | True              | This is an object that can contains your customer details: e.g - 'customer': {'email': 'example@example.com','phone_number': '08012345678','name': 'Takeshi Kovacs' }                                                                    |
+| redirect_url        | False             | URL to redirect to when a transaction is completed. This is useful for 3DSecure payments, so we can redirect your customer back to a custom page you want to show them.                                                                  |
+| customer            | True              | This is an object that can contain your customer details: e.g, 'customer': {'email': 'example@example.com', 'phone_number': '08012345678', 'name': 'Takeshi Kovacs' }                                                                    |
 | subaccounts         | False             | This is an array of objects containing the subaccount IDs to split the payment into. Check our Split Payment page for more info                                                                                                         |
-| meta                | False             | This is an object that helps you include additional payment information to your request e.g {'consumer_id': 23,'consumer_mac': '92a3-912ba-1192a' }                                                                                     |
-| customizations      | True              | This is an object that contains title, logo, and description you want to display on the modal e.g{'title': 'Pied Piper Payments','description': 'Middleout isn't free. Pay the price','logo': 'https://assets.piedpiper.com/logo.png' } |
+| meta                | False             | This is an object that helps you include additional payment information to your request, e.g, {'consumer_id': 23, 'consumer_mac': '92a3-912ba-1192a' }                                                                                     |
+| customizations      | True              | This is an object that contains title, logo, and description you want to display on the modal, e.g, {'title': 'Pied Piper Payments', 'description': 'Middleout isn't free. Pay the price', 'logo': 'https://assets.piedpiper.com/logo.png' } |
 | callback (function) | False             | This is the function that runs after payment is completed                                                                                                                                                                               |
-| close (function)    | False             | This is the function that runs after payment modal is closed                                                                                                                                                                            |
+| close (function)    | False             | This is the function that runs after the payment modal is closed                                                                                                                                                                            |
 
 ## Other methods and descriptions:
 
@@ -267,15 +267,15 @@ Methods provided by the React SDK:
 
 | Method Name  | Parameters  | Returns |Description |
 | ------------- | ------------- | ------------- | ------------- |
-| closePaymentModal  |  Null | Null | This methods allows you to close the payment modal via code. |
+| closePaymentModal  |  Null | Null | This method allows you to close the payment modal via code. |
 
-Please checkout [Flutterwave Documentation](https://developer.flutterwave.com/docs/flutterwave-standard) for other available options you can add to the tag.
+Please check out [Flutterwave Documentation](https://developer.flutterwave.com/v3.0.0/docs/flutterwave-standard-1) for other available options you can add to the tag.
 
 
 
 ## Debugging Errors
 
-We understand that you may run into some errors while integrating our library. You can read more about our error messages [here](https://developer.flutterwave.com/docs/integration-guides/errors).
+We understand that you may run into some errors while integrating our library. You can read more about our error messages [here](https://developer.flutterwave.com/v3.0.0/docs/common-errors).
 
 For `authorization` and `validation` error responses, double-check your API keys and request. If you get a `server` error, kindly engage the team for support.
 
@@ -283,7 +283,7 @@ For `authorization` and `validation` error responses, double-check your API ke
 
 # Support
 
-For additional assistance using this library, please create an issue on the Github repo or contact the developer experience (DX) team via [email](mailto:developers@flutterwavego.com) or on [slack](https://bit.ly/34Vkzcg).
+For additional assistance using this library, please create an issue on the GitHub repo or contact the developer experience (DX) team via [email](mailto:developers@flutterwavego.com) or on [slack](https://bit.ly/34Vkzcg).
 
 You can also follow us [@FlutterwaveEng](https://twitter.com/FlutterwaveEng) and let us know what you think 😊.
 
