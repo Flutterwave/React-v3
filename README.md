@@ -38,7 +38,8 @@ Available features include:
 
 1. Flutterwave version 3 API keys
 2. Node version >= 6.9.x and npm >= 3.x.x
-3. React version  >= 14
+3. React version >= 15 (including React 19)
+4. For Next.js: Version 12+ (both App Router and Pages Router supported)
 
 
 ## Installation
@@ -89,7 +90,8 @@ Add Flutterwave to your projects as a component or a react hook:
 
 1. [As a Component](#components)
 2. [Directly in your code](#hooks)
-3. [Making recurrent payments](#recurring-payments)
+3. [Next.js Applications](#nextjs-applications)
+4. [Making recurrent payments](#recurring-payments)
 
 
 ### Components
@@ -185,6 +187,184 @@ export default function App() {
   );
 }
 ```
+
+### Next.js Applications
+
+The Flutterwave React SDK works seamlessly with Next.js applications. Since the library loads external scripts, you must ensure it runs only on the client side.
+
+#### App Router (Next.js 13+)
+
+Add the `'use client'` directive at the top of your payment component:
+
+```javascript
+'use client';
+
+import React from 'react';
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+
+export default function FlutterwavePayment() {
+  const config = {
+    public_key: 'FLWPUBK-**************************-X',
+    tx_ref: Date.now(),
+    amount: 100,
+    currency: 'NGN',
+    payment_options: 'card,mobilemoney,ussd',
+    customer: {
+      email: 'user@gmail.com',
+      phone_number: '070********',
+      name: 'john doe',
+    },
+    customizations: {
+      title: 'My Payment',
+      description: 'Payment for items in cart',
+      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+    },
+  };
+
+  const handleFlutterPayment = useFlutterwave(config);
+
+  return (
+    <div>
+      <h1>Make Payment</h1>
+      <button
+        onClick={() => {
+          handleFlutterPayment({
+            callback: (response) => {
+              console.log(response);
+              closePaymentModal();
+            },
+            onClose: () => {},
+          });
+        }}
+      >
+        Pay with Flutterwave
+      </button>
+    </div>
+  );
+}
+```
+
+You can also use the FlutterWaveButton component:
+
+```javascript
+'use client';
+
+import React from 'react';
+import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
+
+export default function PaymentButton() {
+  const config = {
+    public_key: 'FLWPUBK-**************************-X',
+    tx_ref: Date.now(),
+    amount: 100,
+    currency: 'NGN',
+    payment_options: 'card,mobilemoney,ussd',
+    customer: {
+      email: 'user@gmail.com',
+      phone_number: '070********',
+      name: 'john doe',
+    },
+    customizations: {
+      title: 'My store',
+      description: 'Payment for items in cart',
+      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+    },
+  };
+
+  const fwConfig = {
+    ...config,
+    text: 'Pay with Flutterwave!',
+    callback: (response) => {
+      console.log(response);
+      closePaymentModal();
+    },
+    onClose: () => {},
+  };
+
+  return (
+    <div>
+      <h1>Checkout</h1>
+      <FlutterWaveButton {...fwConfig} />
+    </div>
+  );
+}
+```
+
+#### Pages Router (Next.js 12 and below)
+
+Use dynamic imports with SSR disabled:
+
+```javascript
+import dynamic from 'next/dynamic';
+
+// Dynamically import the payment component with SSR disabled
+const FlutterwavePayment = dynamic(
+  () => import('../components/FlutterwavePayment'),
+  { ssr: false }
+);
+
+export default function CheckoutPage() {
+  return (
+    <div>
+      <h1>Checkout</h1>
+      <FlutterwavePayment />
+    </div>
+  );
+}
+```
+
+Then create your payment component in `components/FlutterwavePayment.js`:
+
+```javascript
+import React from 'react';
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+
+export default function FlutterwavePayment() {
+  const config = {
+    public_key: 'FLWPUBK-**************************-X',
+    tx_ref: Date.now(),
+    amount: 100,
+    currency: 'NGN',
+    payment_options: 'card,mobilemoney,ussd',
+    customer: {
+      email: 'user@gmail.com',
+      phone_number: '070********',
+      name: 'john doe',
+    },
+    customizations: {
+      title: 'My Payment',
+      description: 'Payment for items in cart',
+      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+    },
+  };
+
+  const handleFlutterPayment = useFlutterwave(config);
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          handleFlutterPayment({
+            callback: (response) => {
+              console.log(response);
+              closePaymentModal();
+            },
+            onClose: () => {},
+          });
+        }}
+      >
+        Pay with Flutterwave
+      </button>
+    </div>
+  );
+}
+```
+
+**Important Notes:**
+- Always use the `'use client'` directive when using Next.js App Router (Next.js 13+)
+- The Flutterwave script loads client-side only and cannot be server-side rendered
+- Ensure payment components are client components, not server components
+- For Pages Router, use `dynamic` import with `ssr: false` to prevent server-side rendering errors
 
 ### Recurring Payments
 
