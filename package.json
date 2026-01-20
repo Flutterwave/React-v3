@@ -47,7 +47,7 @@
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-typescript": "^5.0.2",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
+    "@testing-library/react": "^16.0.0",
     "@types/jest": "^29.4.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
