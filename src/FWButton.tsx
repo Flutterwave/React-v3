@@ -19,7 +19,7 @@ const FlutterWaveButton = ({
   onClose,
   disabled,
   ...config
-}: FlutterWaveButtonProps): JSX.Element => {
+}: FlutterWaveButtonProps): React.ReactElement => {
   const handleFlutterPayment = useFlutterwave(config);
 
   return (

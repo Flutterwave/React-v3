@@ -8,5 +8,5 @@ interface FlutterWaveButtonProps extends FlutterwaveConfig {
     children?: React.ReactNode;
     callback: (response: FlutterWaveResponse) => void;
 }
-declare const FlutterWaveButton: ({ text, className, children, callback, onClose, disabled, ...config }: FlutterWaveButtonProps) => JSX.Element;
+declare const FlutterWaveButton: ({ text, className, children, callback, onClose, disabled, ...config }: FlutterWaveButtonProps) => React.ReactElement;
 export default FlutterWaveButton;
