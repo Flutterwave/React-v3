@@ -1,38 +1,203 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 10vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 5vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 2rem;
+  text-align: center;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header h1 {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 700;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.App-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.payment-form {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.payment-form h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.payment-methods {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.method-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.method-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.method-card h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.4rem;
+}
+
+.method-card p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.method-card code {
+  background: #f5f5f5;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #e91e63;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.custom-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  width: 100%;
+}
+
+.custom-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.flutterwave-btn {
+  background: #f5a623;
+  color: white;
+  width: 100%;
+}
+
+.flutterwave-btn:hover {
+  background: #e69500;
+  transform: scale(1.05);
+}
+
+.styled-btn {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  width: 100%;
+  font-size: 1.1rem;
+}
+
+.styled-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(56, 239, 125, 0.4);
+}
+
+.info-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-left: 5px solid #667eea;
+}
+
+.info-section h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.info-section p {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.info-section strong {
+  color: #333;
+}
+
+.App-footer {
+  text-align: center;
+  padding: 2rem;
+  color: white;
+  opacity: 0.9;
+}
+
+.App-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .container {
+    padding: 1rem;
+  }
+
+  .payment-form,
+  .method-card,
+  .info-section {
+    padding: 1.5rem;
   }
 }
