@@ -13,6 +13,10 @@
    */
   currency?: 'NGN' | string;
   /**
+   * country to charge in. Defaults to NG
+   */
+  country?: 'NG' | string;
+  /**
    * 	This is a sha256 hash of your FlutterwaveCheckout values, it is used for passing secured values to the payment gateway.
    */
   integrity_hash?: string;
@@ -92,6 +96,7 @@ export interface FlutterwaveConfig {
   tx_ref: FlutterWaveProps['tx_ref'];
   amount: FlutterWaveProps['amount'];
   currency?: FlutterWaveProps['currency'];
+  country?: FlutterWaveProps['country'];
   customer: FlutterWaveProps['customer'];
   customizations: FlutterWaveProps['customizations'];
   meta?: FlutterWaveProps['meta'];

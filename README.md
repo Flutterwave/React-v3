@@ -37,7 +37,7 @@ Available features include:
 ## Requirements
 
 1. Flutterwave version 3 API keys
-2. Node version >= 6.9.x and npm >= 3.x.x
+2. Node version >= 14.17.x and npm >= 6.14.x
 3. React version >= 15 (including React 19)
 4. For Next.js: Version 12+ (both App Router and Pages Router supported)
 
@@ -61,23 +61,24 @@ Import useFlutterwave to any component in your application and pass your config
 
 ```javascript
 import { useFlutterwave } from 'flutterwave-react-v3';
- const config = {
-    public_key: 'FLWPUBK-**************************-X',
-    tx_ref: Date.now(),
-    amount: 100,
-    currency: 'NGN',
-    payment_options: 'card,mobilemoney,ussd',
-    customer: {
-      email: 'user@gmail.com',
-      phone_number: '070********',
-      name: 'john doe',
-    },
-    customizations: {
-      title: 'my Payment Title',
-      description: 'Payment for items in cart',
-      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
-    },
-  };
+  const config = {
+     public_key: 'FLWPUBK-**************************-X',
+     tx_ref: Date.now(),
+     amount: 100,
+     currency: 'NGN',
+     country: 'NG',
+     payment_options: 'card,mobilemoney,ussd',
+     customer: {
+       email: 'user@gmail.com',
+       phone_number: '070********',
+       name: 'john doe',
+     },
+     customizations: {
+       title: 'my Payment Title',
+       description: 'Payment for items in cart',
+       logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+     },
+   };
 
  useFlutterwave(config)
 
@@ -102,22 +103,23 @@ import { FlutterWaveButton, closePaymentModal } from 'flutterwave-react-v3';
 
 export default function App() {
    const config = {
-    public_key: 'FLWPUBK-**************************-X',
-    tx_ref: Date.now(),
-    amount: 100,
-    currency: 'NGN',
-    payment_options: 'card,mobilemoney,ussd',
-    customer: {
-      email: 'user@gmail.com',
-      phone_number: '070********',
-      name: 'john doe',
-    },
-    customizations: {
-      title: 'My store',
-      description: 'Payment for items in cart',
-      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
-    },
-  };
+     public_key: 'FLWPUBK-**************************-X',
+     tx_ref: Date.now(),
+     amount: 100,
+     currency: 'NGN',
+     country: 'NG',
+     payment_options: 'card,mobilemoney,ussd',
+     customer: {
+       email: 'user@gmail.com',
+       phone_number: '070********',
+       name: 'john doe',
+     },
+     customizations: {
+       title: 'My store',
+       description: 'Payment for items in cart',
+       logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+     },
+   };
 
   const fwConfig = {
     ...config,
@@ -430,6 +432,7 @@ Read more about our parameters and how they can be used [here](https://developer
 | tx_ref              | True              | Your transaction reference. This MUST be unique for every transaction                                                                                                                                                                   |
 | amount              | True              | Amount to charge the customer.                                                                                                                                                                                                          |
 | currency            | False             | currency to charge in. Defaults to NGN                                                                                                                                                                                                  |
+| country             | False             | country to charge in. Defaults to NG                                                                                                                                                                                                    |
 | integrity_hash      | False             | This is a sha256 hash of your FlutterwaveCheckout values, it is used for passing secured values to the payment gateway.                                                                                                                 |
 | payment_options     | True              | This specifies the payment options to be displayed e.g - card, mobilemoney, ussd and so on.                                                                                                                                             |
 | payment_plan        | False             | This is the payment plan ID used for Recurring billing                                                                                                                                                                                  |

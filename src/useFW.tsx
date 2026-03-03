@@ -7,6 +7,7 @@ import {
 } from './types';
 
 let isFWScriptLoading = false;
+let callbackCalled = false;
 
 /**
  *
@@ -24,10 +25,12 @@ export default function useFlutterwave(
     callback,
     onClose,
   }: InitializeFlutterwavePayment): Promise<void> {
+    callbackCalled = false;
+
     if (isFWScriptLoading) {
       return;
     }
-    
+
     // @ts-ignore
     if (!window.FlutterwaveCheckout) {
       isFWScriptLoading = true;
@@ -40,7 +43,11 @@ export default function useFlutterwave(
     const flutterwaveArgs: FlutterWaveProps = {
       ...flutterWaveConfig,
       amount: flutterWaveConfig.amount ?? 0,
+      country: flutterWaveConfig.country ?? 'NG',
       callback: async(response) => {
+        if (callbackCalled) return;
+        callbackCalled = true;
+
         if(response.status === 'successful'){
           callback(response);
 
