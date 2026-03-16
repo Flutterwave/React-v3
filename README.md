@@ -58,10 +58,13 @@ $ yarn add flutterwave-react-v3
 Import useFlutterwave to any component in your application and pass your config
 
 ```javascript
-import { useFlutterwave } from 'flutterwave-react-v3';
- const config = {
+import React from 'react';
+import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
+
+const PaymentComponent = () => {
+  const config = {
     public_key: 'FLWPUBK-**************************-X',
-    tx_ref: Date.now(),
+    tx_ref: `${Date.now()}`, // String format is safer
     amount: 100,
     currency: 'NGN',
     payment_options: 'card,mobilemoney,ussd',
@@ -73,12 +76,35 @@ import { useFlutterwave } from 'flutterwave-react-v3';
     customizations: {
       title: 'my Payment Title',
       description: 'Payment for items in cart',
-      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+      logo: 'https://your-logo-url.com/logo.png',
     },
   };
 
- useFlutterwave(config)
+  //Initialize the hook
+  const handleFlutterPayment = useFlutterwave(config);
 
+  return (
+    <div className="App">
+      <button
+        onClick={() => {
+          handleFlutterPayment({
+            callback: (response) => {
+               console.log("Payment Response:", response);
+               closePaymentModal();
+            },
+            onClose: () => {
+              console.log("User closed the modal");
+            },
+          });
+        }}
+      >
+        Pay Now
+      </button>
+    </div>
+  );
+}
+
+export default PaymentComponent;
 ```
 
 
