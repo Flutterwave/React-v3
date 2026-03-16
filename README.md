@@ -30,8 +30,6 @@ Available features include:
 5. [Support](#support)
 6. [Contribution Guidelines](#contribution-guidelines)
 7. [License](#license)
-8. [Contributors](#contributors)
-9. [Changelog](#)
 
 
 ## Requirements
@@ -123,8 +121,8 @@ export default function App() {
     ...config,
     text: 'Pay with Flutterwave!',
     callback: (response) => {
-       console.log(response);
-      closePaymentModal() // this will close the modal programmatically
+      console.log(response);
+      closePaymentModal(); // this will close the modal programmatically
     },
     onClose: () => {},
   };
@@ -132,7 +130,7 @@ export default function App() {
   return (
     <div className="App">
      <h1>Hello Test user</h1>
-      <FlutterWaveButton {...fwConfig} />
+     <FlutterWaveButton {...fwConfig} />
     </div>
   );
 }
@@ -154,7 +152,7 @@ export default function App() {
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: 'user@gmail.com',
-       phone_number: '070********',
+      phone_number: '070********',
       name: 'john doe',
     },
     customizations: {
@@ -175,7 +173,7 @@ export default function App() {
           handleFlutterPayment({
             callback: (response) => {
                console.log(response);
-                closePaymentModal() // this will close the modal programmatically
+               closePaymentModal(); // this will close the modal programmatically
             },
             onClose: () => {},
           });
@@ -377,25 +375,25 @@ import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 export default function App() {
   const config = {
-    public_key: "FLWPUBK-**************************-X",
+    public_key: 'FLWPUBK-**************************-X',
     tx_ref: Date.now(),
     amount: 100,
-    currency: "NGN",
-    payment_options: "card",
-    payment_plan: "3341",
+    currency: 'NGN',
+    payment_options: 'card',
+    payment_plan: '3341',
     customer: {
-      email: "user@gmail.com",
-      phone_number: "070********",
-      name: "John Doe",
+      email: 'user@gmail.com',
+      phone_number: '070********',
+      name: 'John Doe',
     },
     meta: {
-      consumer_id: "7898",
-      consumer_mac: "kjs9s8ss7dd",
+      consumer_id: '7898',
+      consumer_mac: 'kjs9s8ss7dd',
     },
     customizations: {
-      title: "My Payment Title",
-      description: "Payment for items in cart",
-      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+      title: 'My Payment Title',
+      description: 'Payment for items in cart',
+      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
     },
   };
 
