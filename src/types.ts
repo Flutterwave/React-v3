@@ -29,6 +29,10 @@
    */
   redirect_url?: string;
   /**
+   * Country of the transaction. E.g. NG, GH, KE, ZA, US. Defaults to NG if not provided.
+   */
+  country?: string;
+  /**
    *  This is an object that can contains your customer details.
    * e.g {
    *    'email': 'example@gmail.com',
@@ -38,8 +42,8 @@
    */
   customer: {
     email: string;
-    phone_number: string;
-    name: string;
+    phone_number?: string;
+    name?: string;
   };
   /**
    *  This is an object that helps you include additional payment information to your request
@@ -92,12 +96,13 @@ export interface FlutterwaveConfig {
   tx_ref: FlutterWaveProps['tx_ref'];
   amount: FlutterWaveProps['amount'];
   currency?: FlutterWaveProps['currency'];
+  country?: FlutterWaveProps['country'];
   customer: FlutterWaveProps['customer'];
   customizations: FlutterWaveProps['customizations'];
   meta?: FlutterWaveProps['meta'];
   redirect_url?: FlutterWaveProps['redirect_url'];
   payment_plan?: FlutterWaveProps['payment_plan'];
-  payment_options: FlutterWaveProps['payment_options'];
+  payment_options?: FlutterWaveProps['payment_options'];
   subaccounts?: FlutterWaveProps['subaccounts'];
   retry?: ScriptDownloadRetryStrategy
 }

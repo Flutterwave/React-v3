@@ -167,7 +167,7 @@ function useFlutterwave(flutterWaveConfig) {
         var _b, _c;
         var callback = _a.callback, onClose = _a.onClose;
         return __awaiter(this, void 0, void 0, function () {
-            var flutterwaveArgs;
+            var paymentOptions, isMultipleOptions, flutterwaveArgs;
             var _this = this;
             return __generator(this, function (_d) {
                 switch (_d.label) {
@@ -183,31 +183,26 @@ function useFlutterwave(flutterWaveConfig) {
                         isFWScriptLoading = false;
                         _d.label = 2;
                     case 2:
-                        flutterwaveArgs = __assign(__assign({}, flutterWaveConfig), { amount: (_b = flutterWaveConfig.amount) !== null && _b !== void 0 ? _b : 0, callback: function (response) { return __awaiter(_this, void 0, void 0, function () {
+                        paymentOptions = (_b = flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) !== null && _b !== void 0 ? _b : 'card, ussd, mobilemoney';
+                        isMultipleOptions = typeof paymentOptions === 'string' &&
+                            paymentOptions.split(',').length > 1;
+                        flutterwaveArgs = __assign(__assign({}, flutterWaveConfig), { amount: (_c = flutterWaveConfig.amount) !== null && _c !== void 0 ? _c : 0, callback: function (response) { return __awaiter(_this, void 0, void 0, function () {
+                                var title;
                                 var _a;
                                 return __generator(this, function (_b) {
                                     switch (_b.label) {
                                         case 0:
-                                            if (!(response.status === 'successful')) return [3 /*break*/, 2];
                                             callback(response);
-                                            return [4 /*yield*/, fetch('https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent', {
-                                                    method: 'post',
-                                                    headers: {
-                                                        'Content-Type': 'application/json',
-                                                    },
-                                                    body: JSON.stringify({
-                                                        publicKey: flutterWaveConfig.public_key,
-                                                        language: 'Flutterwave-React-v3',
-                                                        version: '1.0.7',
-                                                        title: "" + ((flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options.split(',').length) > 1 ? 'Initiate-Charge-Multiple' : "Initiate-Charge-" + (flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options)),
-                                                        message: '15s'
-                                                    })
-                                                })];
+                                            _b.label = 1;
                                         case 1:
-                                            _b.sent();
-                                            return [3 /*break*/, 4];
-                                        case 2:
-                                            callback(response);
+                                            _b.trys.push([1, 3, , 4]);
+                                            title = response.status === 'successful'
+                                                ? isMultipleOptions
+                                                    ? 'Initiate-Charge-Multiple'
+                                                    : "Initiate-Charge-" + paymentOptions
+                                                : isMultipleOptions
+                                                    ? 'Initiate-Charge-Multiple-error'
+                                                    : "Initiate-Charge-" + paymentOptions + "-error";
                                             return [4 /*yield*/, fetch('https://cors-anywhere.herokuapp.com/https://kgelfdz7mf.execute-api.us-east-1.amazonaws.com/staging/sendevent', {
                                                     method: 'post',
                                                     headers: {
@@ -217,17 +212,20 @@ function useFlutterwave(flutterWaveConfig) {
                                                         publicKey: (_a = flutterWaveConfig.public_key) !== null && _a !== void 0 ? _a : '',
                                                         language: 'Flutterwave-React-v3',
                                                         version: '1.0.7',
-                                                        title: "" + ((flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options.split(',').length) > 1 ? 'Initiate-Charge-Multiple-error' : "Initiate-Charge-" + (flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) + "-error"),
-                                                        message: '15s'
-                                                    })
+                                                        title: title,
+                                                        message: '15s',
+                                                    }),
                                                 })];
+                                        case 2:
+                                            _b.sent();
+                                            return [3 /*break*/, 4];
                                         case 3:
                                             _b.sent();
-                                            _b.label = 4;
+                                            return [3 /*break*/, 4];
                                         case 4: return [2 /*return*/];
                                     }
                                 });
-                            }); }, onclose: onClose, payment_options: (_c = flutterWaveConfig === null || flutterWaveConfig === void 0 ? void 0 : flutterWaveConfig.payment_options) !== null && _c !== void 0 ? _c : 'card, ussd, mobilemoney' });
+                            }); }, onclose: onClose, payment_options: paymentOptions });
                         // @ts-ignore
                         window.FlutterwaveCheckout(flutterwaveArgs);
                         return [2 /*return*/];

@@ -487,6 +487,69 @@ test('useFlutterwave should forward onClose parameter correctly', async () => {
   expect((window as any).FlutterwaveCheckout).toHaveBeenCalled();
 });
 
+test('useFlutterwave should forward country parameter to FlutterwaveCheckout', async () => {
+  const mockCallback = jest.fn();
+  const mockOnClose = jest.fn();
+  
+  (window as any).FlutterwaveCheckout = jest.fn((args) => {
+    expect(args.country).toBe('GH');
+  });
+  
+  const {result} = renderHook(() => useFW({ ...mockConfig, country: 'GH', currency: 'GHS' }));
+  
+  await act(async () => {
+    await result.current({ callback: mockCallback, onClose: mockOnClose });
+  });
+  
+  expect((window as any).FlutterwaveCheckout).toHaveBeenCalled();
+});
+
+test('useFlutterwave should handle omitted payment_options without crashing on callback', async () => {
+  const mockCallback = jest.fn();
+  const mockOnClose = jest.fn();
+  
+  (window as any).FlutterwaveCheckout = jest.fn((args) => {
+    args.callback({ status: 'successful' });
+  });
+  
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({}),
+    } as Response)
+  );
+  
+  const configWithoutOptions = { ...mockConfig };
+  delete (configWithoutOptions as any).payment_options;
+  
+  const {result} = renderHook(() => useFW(configWithoutOptions));
+  
+  await act(async () => {
+    await result.current({ callback: mockCallback, onClose: mockOnClose });
+  });
+  
+  expect(mockCallback).toHaveBeenCalled();
+});
+
+test('useFlutterwave should not throw when telemetry fetch fails', async () => {
+  const mockCallback = jest.fn();
+  const mockOnClose = jest.fn();
+  
+  (window as any).FlutterwaveCheckout = jest.fn((args) => {
+    args.callback({ status: 'successful' });
+  });
+  
+  global.fetch = jest.fn(() => Promise.reject(new Error('Network error')));
+  
+  const {result} = renderHook(() => useFW(mockConfig));
+  
+  await act(async () => {
+    await result.current({ callback: mockCallback, onClose: mockOnClose });
+  });
+  
+  expect(mockCallback).toHaveBeenCalled();
+});
+
 test('useFWScript validates maxAttempt and interval as numbers', async () => {
   const scriptPromise = useFWScript({ maxAttempt: 0, interval: 0 });
   
